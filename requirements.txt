@@ -1,0 +1,11 @@
+streamlit
+spacy
+unidic2ud
+sentencepiece
+transformers
+torch
+typer
+scikit-learn
+registrable
+plotly
+pandas

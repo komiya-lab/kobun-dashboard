@@ -1,0 +1,6 @@
+{
+    "modeldir": "../data/models/",
+    "corpusdir": "../data/CHJ/",
+    "dbdir": "db",
+    "emb_pooling": "mean"
+}
