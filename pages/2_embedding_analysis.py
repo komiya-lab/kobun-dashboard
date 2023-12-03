@@ -87,7 +87,7 @@ if sbm:
         aucs = list()
         for k in range(min_k, max_k + 1):
             print(k)
-            analysis_bar.progress(0.5 + (max_k -k)/(max_k - min_k) * 0.5, "GMM clustering")
+            analysis_bar.progress(0.5 + k/(max_k - min_k) * 0.5, "GMM clustering")
             gmm = GaussianMixture(k)
             gmm.fit(features)
             gmms.append(gmm)
@@ -141,7 +141,7 @@ if os.path.exists(outdir):
             st.plotly_chart(fig)
 
     data = list()
-    targets = TARGETS + ["成立年", "cluster", "count"]
+    targets = TARGETS + ["成立年", "cluster", "count", "sentence"]
     for index in indices:
         d = CHJ_DATA.get(index)
         e = embs[index]
@@ -151,11 +151,13 @@ if os.path.exists(outdir):
         data.append([d[key] for key in targets])
 
     data = pd.DataFrame(data, columns=targets)
+    data = data.sort_values("cluster")
 
-    panes = st.columns(len(targets) -2)
+    panes = st.columns(len(targets) -3)
 
-    for pane, key in zip(panes, targets[:-2]):
+    for pane, key in zip(panes, targets[:-3]):
         with pane:
             fig = px.bar(data, x=key, y="count", color="cluster", title=key)
             st.plotly_chart(fig)
 
+    st.dataframe(data)
