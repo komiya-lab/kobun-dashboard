@@ -1,0 +1,61 @@
+1	國境	國境	NOUN	_	_	4	nmod	_	_
+2	の	の	ADP	_	_	1	case	_	_
+3	長い	長い	ADJ	_	_	4	acl	_	_
+4	トンネル	トンネル	NOUN	_	_	6	obj	_	_
+5	を	を	ADP	_	_	4	case	_	_
+6	拔ける	拔ける	VERB	_	_	10	advcl	_	_
+7	と	と	SCONJ	_	_	6	mark	_	_
+8	雪國	雪國	NOUN	_	_	10	obl	_	_
+9	で	で	ADP	_	_	8	case	_	_
+10	あつ	あつる	VERB	_	_	0	root	_	_
+11	た	た	AUX	_	_	10	aux	_	_
+12	。	。	PUNCT	_	_	10	punct	_	_
+
+1	夜	夜	NOUN	_	_	3	nmod	_	_
+2	の	の	ADP	_	_	1	case	_	_
+3	底	底	NOUN	_	_	5	nsubj	_	_
+4	が	が	ADP	_	_	3	case	_	_
+5	白く	白い	ADJ	_	_	0	root	_	_
+6	なつ	なる	AUX	_	_	5	aux	_	_
+7	た	た	AUX	_	_	5	aux	_	_
+8	。	。	PUNCT	_	_	5	punct	_	_
+
+1	信號	信號	NOUN	_	_	2	compound	_	_
+2	所	所	NOUN	_	_	6	iobj	_	_
+3	に	に	ADP	_	_	2	case	_	_
+4	汽車	汽車	NOUN	_	_	6	nsubj	_	_
+5	が	が	ADP	_	_	4	case	_	_
+6	止つ	止つる	VERB	_	_	0	root	_	_
+7	た	た	AUX	_	_	6	aux	_	_
+8	。	。	PUNCT	_	_	6	punct	_	_
+
+1	向側	向側	NOUN	_	_	3	nmod	_	_
+2	の	の	ADP	_	_	1	case	_	_
+3	座席	座席	NOUN	_	_	7	obl	_	_
+4	から	から	ADP	_	_	3	case	_	_
+5	娘	娘	NOUN	_	_	7	nsubj	_	_
+6	が	が	ADP	_	_	5	case	_	_
+7	立つ	立つ	VERB	_	_	19	advcl	_	_
+8	て	て	SCONJ	_	_	7	mark	_	_
+9	來	來る	AUX	_	_	7	aux	_	_
+10	て	て	SCONJ	_	_	7	mark	_	_
+11	、	、	PUNCT	_	_	7	punct	_	_
+12	島村	島村	PROPN	_	_	14	nmod	_	_
+13	の	の	ADP	_	_	12	case	_	_
+14	前	前	NOUN	_	_	17	nmod	_	_
+15	の	の	ADP	_	_	14	case	_	_
+16	ガラス	ガラス	NOUN	_	_	17	compound	_	_
+17	窓	窓	NOUN	_	_	19	obj	_	_
+18	を	を	ADP	_	_	17	case	_	_
+19	落し	落す	VERB	_	_	0	root	_	_
+20	た	た	AUX	_	_	19	aux	_	_
+21	。	。	PUNCT	_	_	19	punct	_	_
+
+1	雪	雪	NOUN	_	_	3	nmod	_	_
+2	の	の	ADP	_	_	1	case	_	_
+3	冷氣	冷氣	NOUN	_	_	5	nsubj	_	_
+4	が	が	ADP	_	_	3	case	_	_
+5	流れこん	流れこむ	VERB	_	_	0	root	_	_
+6	だ	た	AUX	_	_	5	aux	_	_
+7	。	。	PUNCT	_	_	5	punct	_	_
+
