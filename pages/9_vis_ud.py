@@ -1,9 +1,11 @@
 import os
+import glob
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 from spacy import displacy
 from conllu import parse_incr
+from collections import Counter
 
 DBPATH = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "db/visud")
 UPOS_TARGETS = ['PRON_NOUN',
@@ -91,6 +93,15 @@ def compare_tag(tag, gold, pred, diff, count_gold=False):
         diff[(gtag, ptag)] = l
     return diff
 
+def corpus_stats(corpus_, target="deprel"):
+   l = list()
+   for v in corpus_.values():
+      l.extend([t[target] for t in v])
+   c = Counter(l)
+   val = sorted(c.items(), key=lambda v: v[1], reverse=True)
+   return pd.DataFrame([{"type":k, "count": v} for k, v in val])
+      
+
 def to_dataset(gold, pred, upos_targets, rel_targets):
     res = []
     pos_stats = dict()
@@ -98,6 +109,8 @@ def to_dataset(gold, pred, upos_targets, rel_targets):
     for sent, glist in gold.items():
       r = {"sentence": sent, "UPOS": [], "REL": []}
       r.update({t: None for t in upos_targets})
+      if sent not in pred:
+         continue
       plist = pred[sent]
 
       gtriples = [(t["head"], t["id"], t["deprel"]) for t in glist]
@@ -161,14 +174,18 @@ def dep_render(tlist):
 def plot_stats(stats: pd.DataFrame):
    stats = stats.sort_values(by="count", ascending=False)
    return px.bar(stats[:20], x="type", y="count")
-   
+
+
+corpora = ("ja_modern-ud", "maihime", "yukiguni", "koyayori", "ja_bccwj-ud", "ja_gsd-ud")
+parsers = list()
+for c in corpora:
+  parsers.extend([os.path.basename(p) for p in glob.glob(os.path.join(DBPATH, f"{c}/*"))])
+parsers = sorted(set(parsers))
 
 with st.sidebar:
-    corpus  = st.selectbox("corpus", ("ja_modern-ud", "maihime", "yukiguni", "koyayori"))
-    gold = st.selectbox("gold", ("gold", "udify", "unidic2ud", "diaparser_bccwj_tohoku", "diaparser_bccwj_t5", 
-                                     "diaparser_gsd_tohoku", "diaparser_gsd_t5", "diaparser_gsd_mbert"))
-    parser = st.selectbox("parser", ("udify", "unidic2ud", "diaparser_bccwj_tohoku", "diaparser_bccwj_t5", 
-                                     "diaparser_gsd_tohoku", "diaparser_gsd_t5", "diaparser_gsd_mbert"))
+    corpus  = st.selectbox("corpus", corpora)
+    gold = st.selectbox("gold", ["gold"] + parsers)
+    parser = st.selectbox("parser", parsers)
 
 if gold == "gold":
   gold_file = os.path.join(DBPATH, f"{corpus}/gold.conllu")
@@ -183,8 +200,23 @@ with st.sidebar:
   upos_targets = st.multiselect("upos targets", UPOS_TARGETS, default=UPOS_TARGETS[:3])
   rel_targets = st.multiselect("rel targets", REL_TARGETS, default=REL_TARGETS[:3])
 
+gold_stats = corpus_stats(gold_sentences)
+pred_stats = corpus_stats(pred_sentences)
 df, pos_stats, rel_stats = to_dataset(gold_sentences, pred_sentences, upos_targets, rel_targets)
 selected = dataframe_with_selections(df)
+
+st.markdown("## Corpora Stats")
+col1, col2 = st.columns(2)
+
+with col1:
+  st.markdown(f"## {gold} stats")
+  st.plotly_chart(plot_stats(gold_stats))
+
+with col2:
+  st.markdown(f"## {parser} stats")
+  st.plotly_chart(plot_stats(pred_stats))
+
+st.markdown("## Differences between corpora")
 
 col1, col2 = st.columns(2)
 
