@@ -100,7 +100,10 @@ def corpus_stats(corpus_, target="deprel"):
    c = Counter(l)
    val = sorted(c.items(), key=lambda v: v[1], reverse=True)
    return pd.DataFrame([{"type":k, "count": v} for k, v in val])
-      
+
+def normalize(stats, ref):
+  if isinstance(ref, (int, float)):
+     ret
 
 def to_dataset(gold, pred, upos_targets, rel_targets):
     res = []
